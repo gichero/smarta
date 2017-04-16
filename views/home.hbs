@@ -1,0 +1,118 @@
+<div class="home_wrapper">
+
+
+<nav class="home_nav_div cf">
+  <a href="/"><img id="logo" src="/assets/logo.png" alt="logo"></a>
+  <ul id="home_nav">
+    <li> <a href="/about"> About </a> </li>
+    <li> <a href="/contact"> Contact Us </a> </li>
+  </ul>
+</nav>
+<!-- Need to allow search by stop or route -->
+
+<div id = "search" class="cf">
+<h1 id="title">SMARTA</h1>
+<form action="/search_result" method="post">
+    <div id="filter_div1">
+    <label class="filter_div1_label">Search Term: </label>
+    <input type="text" name="search_term" id="search_term" placeholder="Enter your search">
+    <label class="filter_div1_label">Route Type</label>
+    <select name="route_type" id="route_type">
+        <option value="" disabled selected>Select a route type</option>
+        <option value="bus">Bus</option>
+        <option value="train">Train</option>
+        <option value="both">Both</option>
+    </select>
+    <label class="filter_div1_label">Route</label>
+    <select name="route" id="route">
+        <option value="" disabled selected>Select a route</option>
+        {{#each routes}}
+            <option value="{{this.route_id}}" class="{{this.route_type}} route_option">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <label class="stop filter_div1_label" id="stop_label">Stop</label>
+    <select class="stop" id="stop" name="stop">
+        <option value="all_stops">All Stops</option>
+        {{#each stops}}
+            <option class = '{{this.route_id}} stop_option' value="{{this.stop_id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <!-- <label class="filter_div1_label">Zipcode: </label>
+    <input type="text" name="zipcode" placeholder = "required" id="zipcode"> -->
+  </div>
+  <!-- <label>category: </label><input type="text" name="category">
+  <label>subcategory: </label><input type="text" name="subcategory"> -->
+  <div id="filter_div2">
+    <label>Rating: </label>
+    <select id="rating" name="rating">
+    <option value="" disabled selected>Select rating range</option>
+    <option value="1">1 star and more</option>
+    <option value="2">2 stars and more</option>
+    <option value="3">3 stars and more</option>
+    <option value="4">4 stars and more</option>
+    <option value="5">5 stars only</option>
+    </select>
+
+    <label>Price: </label>
+
+    <select id="price" name="price">
+    <option value="" disabled selected>Select maximum price level</option>
+    <option value="1">$</option>
+    <option value="2">$$</option>
+    <option value="3">$$$</option>
+    <option value="4">$$$$</option>
+    </select>
+
+    <label>Walking time to Marta Stop: </label>
+
+    <select id="time" name="time">
+    <option value="" disabled selected>Select walking time range</option>
+    <option value="300">less than 5 minutes</option>
+    <option value="600">less than 10 minutes</option>
+    <option value="900">less than 15 minutes</option>
+    <option value="1200">less than 20 minutes</option>
+    <option value="1800">less than 30 minutes</option>
+    </select>
+
+  </div>
+  <!-- <label>bus or train: <label>
+    <select name="transittype">
+      <option value="bus">bus</option>
+      <option value="train">train</option>
+      <option value="both">both</option>
+    </select> -->
+  <div id="filter_div3">
+  <label>Limit: </label><input type="number" name="limit" min="1" max="50" step="1" value="20">
+  <input type="radio" name="viewtype" value="map" checked>
+  <label>Show results in map</label>
+  <input type="radio" name="viewtype" value="table"> <label>Show results in list</label>
+  <button id="search_submit" type="submit">Search</button>
+</div>
+</form>
+
+</div>
+</div>
+
+<script type="text/javascript">
+    $("#route_type").on('change', (event)=>{
+        var current = $('#route_type').val();
+        if (current === "bus") {
+          $('.train').hide();
+          $('.bus').show();
+        } else if (current === "train"){
+          $('.train').show();
+          $('.bus').hide();
+        } else if (current === "both"){
+          $('.train').show();
+          $('.bus').show();
+        }
+    });
+    $('#route').on('change', (event)=>{
+        $('#search_submit').removeAttr('disabled');
+        $('#stop_label').show();
+        $('#stop_label').css("display", "block");
+        $('#stop').show();
+        var current = $('#route').val();
+        $('.'+current).show();
+    });
+</script>

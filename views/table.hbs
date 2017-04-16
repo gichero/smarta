@@ -1,0 +1,42 @@
+<style> body {
+  overflow: scroll;
+  margin: 0;
+}
+</style>
+
+<div class="table_wrapper">
+
+  <nav class="table_nav_div cf">
+    <a href="/"><img id="logo" src="/assets/logo.png" alt="logo"></a>
+    <ul id="table_nav">
+      <li><a href="/"> Home </a> </li>
+      <li><a href="/about"> About  </a></li>
+      <li><a href="/contact"> Contact Us  </a></li>
+
+    </ul>
+  </nav>
+<table >
+
+  <tr>
+    <th class="table_first_row"> Name </th>
+    <th class="table_first_row"> Rating </th>
+    <th class="table_first_row"> Price </th>
+    <th class="table_first_row"> Link </th>
+  </tr>
+  {{#each locations}}
+
+  <tr>
+    <td class="name_td"> {{this.name}}</td>
+    <td> {{this.rating}} </td>
+    <td> {{this.price}}</td>
+    <td class="name_url"> <a href="{{this.url}}"> Go to Yelp </a> </td>
+  </tr>
+
+  {{/each}}
+
+</table>
+
+<button> <a href="/map"> Map View </a> </button>
+
+
+</div>
