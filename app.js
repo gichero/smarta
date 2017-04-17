@@ -58,13 +58,12 @@ app.get("/", function(req, res, next){
         })
         .catch(next);
 
-
 });
 
 app.post("/search_result", function(req, res, next){
     // req.clearTimeout();
       current_result_set = [];
-      console.log("we definitely posted.");
+
       var search_term = req.body.search_term;
       var limit = req.body.limit;
       if (req.body.rating !== undefined) {
@@ -102,9 +101,9 @@ app.post("/search_result", function(req, res, next){
       }
       db.any(dbq, filter_by)
         .then((data)=> {
-            console.log('db returned');
+
             if (data.length === 1) {
-              console.log('hello');
+
               yelp.search({latitude: data[0].stop_lat, longitude: data[0].stop_lon, term: search_term, limit: limit, price: price, radius: radius})
               .then((data) => {
                 // console.log(data);
@@ -118,17 +117,16 @@ app.post("/search_result", function(req, res, next){
               }).catch(next);
             } else if (data.length > 1) {
               // get multiple searches
-              console.log('hello again');
+
               var checker = data.length;
               for (var i = 0; i < data.length; i++) {
-                console.log("inside the for loop");
+
                 yelp.search({latitude: data[i].stop_lat, longitude: data[i].stop_lon, term: search_term, limit: limit, price: price, radius: radius})
                   .then((data)=> {
-                    console.log("inside the yelp promise");
+
                     // data = JSON.parse(data);
                     current_result_set.push(JSON.parse(data));
-                    console.log(current_result_set.length);
-                    console.log(checker);
+
                     if (current_result_set.length === checker) {
                       if (viewtype === 'map') {
                         res.redirect('/map');
@@ -243,11 +241,11 @@ app.get("/table", function(req, res, next){
 
 app.get("/about", function(req, res, next){
   res.render("about.hbs");
-})
+});
 
 app.get("/contact", function(req, res, next){
   res.render("contact_us.hbs");
-})
+});
 
 app.listen(9001, function(){
     console.log("listening on 9001");
