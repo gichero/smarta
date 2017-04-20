@@ -13,25 +13,46 @@ body {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
 }
 
 /*home page*/
 .home_wrapper{
 	position: absolute;
 	top: 0;
-	height: 100vh;
 	width: 100vw;
 	background-image: url(/assets/background.jpg);
 	background-size: cover;
+  overflow: hidden;
+}
+
+@media (max-width: 500px){
+  .home_wrapper{
+    height: 100vh;
+  }
+}
+
+@media (min-width: 1201px){
+  .home_wrapper{
+    height: 100vh;
+  }
 }
 
 #search{
 	width: 60vw;
 	margin-left: 20vw;
 	margin-top: 15vh;
+  margin-bottom: 15vh;
 	background-color: rgba(255, 255, 255, 0.55);
   padding-left: 3vw;
+}
+
+@media (max-width: 500px){
+  #search{
+    width: 100vw;
+    margin-left: 0;
+    margin-top: 4vh;
+    margin-bottom: 0;
+  }
 }
 
 .filter_div1_label{
@@ -60,7 +81,7 @@ body {
 	font-size: 4vw;
 	font-weight: 200;
 	letter-spacing: 1vw;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
   margin-top: 2vh;
 }
 
@@ -76,7 +97,19 @@ body {
   border: none;
 }
 
-#route, #route_type {
+@media (max-width: 1200px){
+  #search_term{
+    width: 49.4vw;
+  }
+}
+
+@media (max-width: 500px){
+  #search_term{
+    width: 79.4vw;
+  }
+}
+
+#route, #route_type{
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance:none;
@@ -107,6 +140,13 @@ body {
   display: none;
 }
 
+@media (max-width: 1200px){
+  #route, #route_type, #stop{
+    width: 50.5vw;
+    background-size: 3% 50%;
+  }
+}
+
 #stop_label{
   display: none;
 }
@@ -125,6 +165,13 @@ body {
 #filter_div2{
   float:left;
   margin-left: 2vw;
+}
+
+@media (max-width: 1200px){
+  #filter_div2{
+    clear:left;
+    margin-left: 5vw;
+  }
 }
 
 #rating{
@@ -172,10 +219,50 @@ body {
   border: none;
 }
 
+@media (max-width: 1200px){
+  #rating, #price, #time{
+    width: 50.5vw;
+    background-size: 3% 50%;
+    background-position: 97% 50%;
+  }
+}
+
+@media (max-width: 900px){
+  #route, #route_type, #stop, #rating, #price, #time{
+    background-size: 4% 50%;
+  }
+}
+
+@media (max-width: 700px){
+  #route, #route_type, #stop, #rating, #price, #time{
+    background-size: 6% 50%;
+  }
+}
+
+@media (max-width: 500px){
+  #route, #route_type, #stop, #rating, #price, #time{
+    width: 80.5vw;
+  }
+}
+
 #filter_div3{
   clear: left;
   margin-left: 5vw;
   padding-top: 1.5vh;
+}
+
+#limit{
+  width:30px;
+}
+
+#show_map_radio_div, #show_list_radio_div{
+  display: inline;
+}
+
+@media (max-width: 784px){
+  #show_map_radio_div, #show_list_radio_div{
+    display: block;
+  }
 }
 
 #filter_div3 button{
@@ -190,6 +277,13 @@ body {
   margin-bottom: 5vh;
 }
 
+@media (max-width: 500px){
+  #filter_div3 button{
+    width: 80.5vw;
+    margin-left: 0;
+  }
+}
+
 .home_nav_div{
 	height: 10vh;
 }
@@ -199,6 +293,12 @@ body {
 	height: 8vh;
 	margin-left: 2vw;
   padding-top: 2vh;
+}
+
+@media (max-width: 500px){
+  #logo{
+    margin-left: 5vw;
+  }
 }
 
 #home_nav{
@@ -212,6 +312,14 @@ body {
 	padding-right: 2vw;
 	padding-top: 1vh;
 	font-family: 'Raleway', sans-serif;
+}
+
+@media (max-width: 500px){
+  #home_nav li{
+    padding-left: 0;
+    padding-right: 4vw;
+    padding-top: 2vh;
+  }
 }
 
 #home_nav a {
@@ -255,8 +363,12 @@ body {
   position: absolute;
   top: 0;
   width: 100vw;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.8);
 
+}
+
+.map_wrapper {
+  overflow: hidden;
 }
 
 
@@ -297,8 +409,9 @@ body {
 table {
   color: white;
   font-family: 'Raleway', sans-serif;
-  width: 70vw;
-  margin-left: 15vw;
+  width: 80vw;
+  margin-left: 10vw;
+  margin-top: 2vh;
   border-collapse: collapse;
 }
 
@@ -309,13 +422,11 @@ table {
 
 table td {
   text-align: center;
-  /*border: 1px solid white;*/
-  padding: 1vh 0 1vw 0;
-
+  padding: 1vh 1vw;
 }
 
 .name_td {
-  width: 30vw;
+  width: 25vw;
 }
 
 .name_url {
@@ -328,21 +439,50 @@ table a {
 }
 
 .table_wrapper button {
-  height: 5vh;
-  width: 8vw;
-  margin-left: 43vw;
-  margin-top: 10vh;
-  margin-bottom: 5vh;
-  background: transparent;
+  height: 4vh;
+  width: 12vw;
+  background: white;
   border-style: solid;
-  color: white;
+  border: none;
+  color: #B84311;
 }
 
 .table_wrapper button a {
   text-decoration: none;
-  color: white;
 }
 
+.toggle {
+  height: 4.5vh;
+  width: 13vw;
+  margin-left: 43vw;
+  margin-top: 2vh;
+  margin-bottom: 4vh;
+}
+
+.table_wrapper button:hover {
+  height: 4.5vh;
+  width: 13vw;
+}
+.mobile_th {
+  display:none;
+}
+
+
+@media (max-width: 500px) {
+  table {
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 2vh;
+    border-collapse: collapse;
+    font-size: 0.9em;
+  }
+  .mobile_th {
+    display:inline;
+  }
+  .normal_th {
+    display:none;
+  }
+}
 
 /*about page*/
 #about_nav li{
@@ -370,16 +510,23 @@ table a {
   margin-top: 8vh;
   margin-bottom: 10vh;
   color: #CD3C0A;
-
 }
 
-#about_content {
+.about_content {
   margin-left: 28vw;
   margin-right: 28vw;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.58;
+
 }
 
-/*table page*/
-
+@media (max-width:500px) {
+  .about_content {
+    margin-left: 7vw;
+    margin-right: 7vw;
+  }
+}
 
 
 /*contact page*/
@@ -409,7 +556,7 @@ table a {
   text-align: center;
   margin-top: 8vh;
   margin-bottom: 10vh;
-
+  color: #B84311;
 }
 
 #builders {
@@ -417,4 +564,75 @@ table a {
   font-family: 'Raleway', sans-serif;
 }
 
-#route {font-family: Arial !important; }
+.table_redirect {
+  position: absolute;
+  bottom:3.5vh;
+  left: 1vh;
+  z-index: 100;
+}
+
+.map_wrapper button {
+  height: 4vh;
+  width: 12vw;
+  background: #B84311;
+  border-style: solid;
+  border: none;
+  color: white;
+}
+
+.map_wrapper button a {
+  text-decoration: none;
+  color: white;
+}
+
+.map_wrapper button:hover {
+  height: 4.5vh;
+  width: 13vw;
+}
+
+#search_error {
+  margin-bottom: 1vh;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 80%;
+  color: #B84311;
+}
+
+@media (min-width: 900px) {
+  .map_wrapper button {
+    height: 4vh;
+    width: 110px;
+    background: #B84311;
+    border-style: solid;
+    border: none;
+    color: white;
+  }
+
+  .map_wrapper button:hover {
+    height: 4.5vh;
+    width: 120px;
+  }
+
+  .table_wrapper button {
+    height: 4vh;
+    width: 110px;;
+    background: white;
+    border-style: solid;
+    border: none;
+    color: #B84311;
+    position: fixed;
+    bottom:3.5vh;
+    left: 1vh;
+    z-index: 100;
+  }
+
+  .table_wrapper button:hover {
+    height: 4.5vh;
+    width: 120px;
+  }
+}
+
+.icon {
+  padding-left: 0.5em;
+  max-height: 1em;
+}

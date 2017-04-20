@@ -1,13 +1,7 @@
-<style> body {
-  overflow: scroll;
-  margin: 0;
-}
-</style>
-
 <div class="table_wrapper">
 
   <nav class="table_nav_div cf">
-    <a href="/"><img id="logo" src="/assets/logo.png" alt="logo"></a>
+    <a href="/"><img id="table_logo" src="/assets/logo.png" alt="logo"></a>
     <ul id="table_nav">
       <li><a href="/"> Home </a> </li>
       <li><a href="/about"> About  </a></li>
@@ -15,12 +9,15 @@
 
     </ul>
   </nav>
+
+<div class="toggle"><a href="/map"><button>Map View</button></a></div>
 <table >
 
   <tr>
     <th class="table_first_row"> Name </th>
-    <th class="table_first_row"> Rating </th>
-    <th class="table_first_row"> Price </th>
+    <th class="table_first_row"> <span class="normal_th">Rating</span> <span class="mobile_th">&#9734;</span> </th>
+    <th class="table_first_row"> <span class="normal_th">Price</span> <span class="mobile_th">$</span> </th>
+    <th class="table_first_row"> Close to stop </th>
     <th class="table_first_row"> Link </th>
   </tr>
   {{#each locations}}
@@ -29,6 +26,7 @@
     <td class="name_td"> {{this.name}}</td>
     <td> {{this.rating}} </td>
     <td> {{this.price}}</td>
+    <td> {{this.stop_name}}</td>
     <td class="name_url"> <a href="{{this.url}}"> Go to Yelp </a> </td>
   </tr>
 
@@ -36,7 +34,7 @@
 
 </table>
 
-<button> <a href="/map"> Map View </a> </button>
+
 
 
 </div>

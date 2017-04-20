@@ -4,25 +4,9 @@ var map;
 
 function initMap() {
 
-	var av_lat = 0;
-	var av_lon = 0;
-	if (stops !== undefined) {
-		stops.forEach((element)=>{
-			av_lat += element.lat;
-			av_lon += element.lon;
-		});
-		av_lat = av_lat/stops.length;
-		av_lon = av_lon/stops.length;
-	}
-
-	if (center !== undefined) {
-		av_lat = center.lat;
-		av_lon = center.lon;
-	}
-
 	var map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 13,
-		center: new google.maps.LatLng(av_lat, av_lon),
+		center: new google.maps.LatLng(center.lat, center.lon),
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		mapTypeControl: false
 	});
@@ -59,25 +43,24 @@ function initMap() {
 	}
 
 
+	var stop_marker, i;
 	if (stops) {
-		for (var i = 0; i< stops.length; i++) {
-			var center_marker = new google.maps.Marker({
+		for (i = 0; i < stops.length; i++) {
+			stop_marker = new google.maps.Marker({
 				position: new google.maps.LatLng(stops[i].lat,stops[i].lon),
 				map: map
 			});
 
-			center_marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+			stop_marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+
+			google.maps.event.addListener(stop_marker, 'click', (function (stop_marker, i) {
+				return function () {
+					map.setCenter(stop_marker.getPosition());
+					infowindow.setContent("<p>"+stops[i].name+"</p>");
+					infowindow.open(map, stop_marker);
+				}
+			})(stop_marker, i));
 		}
 	}
-
-	if (center) {
-		var center_marker = new google.maps.Marker({
-			position: new google.maps.LatLng(center.lat,center.lon),
-			map: map
-		});
-
-		center_marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-	}
-
-
 }
