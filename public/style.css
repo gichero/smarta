@@ -22,7 +22,7 @@ body {
 	width: 100vw;
 	background-image: url(/assets/background.jpg);
 	background-size: cover;
-  overflow: hidden;
+  overflow: auto;
 }
 
 @media (max-width: 500px){

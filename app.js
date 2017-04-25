@@ -5,11 +5,8 @@ const pgp = require('pg-promise')();
 const config = require('./config');
 const Yelp = require('yelp-api-v3');
 const Promise = require('bluebird');
-var yelp = new Yelp({
-  app_id: config.yelp.APPID,
-  app_secret: config.yelp.APPSECRET
-});
-var db = pgp(config.dbconfig);
+var yelp = new Yelp(config.yelp);
+var db = pgp(config.db);
 var current_result_set = [];
 var min_rating, search_error;
 
@@ -29,7 +26,7 @@ app.get("/", function(req, res, next){
             stops = data.map((element)=>{
                 return {name: element.stop_name, route_id: `route_id${element.route_id}`, stop_id: element.stop_id};
             });
-            return db.any('select route_long_name, route_id, route_type from routes')
+            return db.any('select route_long_name, route_id, route_type from routes');
         })
         .then((data)=>{
             routes = data.map((element)=>{
@@ -79,7 +76,7 @@ app.post("/search_result", function(req, res, next){
       }
       var route = req.body.route.replace("route_id","");
       var base = 'select distinct on(stop_lat, stop_lon) stop_lat, stop_lon, stop_name from stops inner join route_stop using (stop_id) ';
-      var route_query = 'where route_id = $1'
+      var route_query = 'where route_id = $1';
       var stop_query = 'where stop_id = $1';
       if (stop === "all_stops") {
         var dbq = base + route_query;
@@ -100,11 +97,11 @@ app.post("/search_result", function(req, res, next){
               yelp.search({latitude: data[i].stop_lat, longitude: data[i].stop_lon, term: search_term, limit: limit, price: price, radius: radius})
             ])
               .spread((i, data)=> {
-                data=JSON.parse(data)
+                data=JSON.parse(data);
                 data["stop_name"]=stop_names[i];
                 data.businesses.forEach((element) => {
                   element["stop_name"] = stop_names[i];
-                })
+                });
                 current_result_set.push(data);
                 if (current_result_set.length === checker) {
                   if (viewtype === 'map') {
@@ -186,11 +183,11 @@ app.get("/table", function(req, res, next){
 
 app.get("/about", function(req, res, next){
   res.render("about.hbs");
-})
+});
 
 app.get("/contact", function(req, res, next){
   res.render("contact_us.hbs");
-})
+});
 
 app.listen(9001, function(){
     console.log("listening on 9001");
